@@ -14,7 +14,31 @@ D - Division
 Q - Quit the program");
 Console.WriteLine("---------------------");
 
-Console.ReadLine();
+var gameSelected = Console.ReadLine();
 
-Console.WriteLine("ldkjfa;lksjfk;asd");
-Console.WriteLine("aldsfkjdsa");
+if (gameSelected.Trim().ToLower() == "a")
+{
+    Console.WriteLine("Addition game selected");
+} 
+else if (gameSelected.Trim().ToLower() == "s")
+{
+    Console.WriteLine("Subtraction game selected");
+} 
+else if (gameSelected.Trim().ToLower() == "m")
+{
+    Console.WriteLine("Multiplication game selected");
+}
+else if (gameSelected.Trim().ToLower() == "d")
+{
+    Console.WriteLine("Division game selected");
+}
+else if (gameSelected.Trim().ToLower() == "q")
+{
+    Console.WriteLine("Goodbye");
+    Environment.Exit(1);
+}
+else
+{
+    Console.WriteLine("Invalid input");
+}
+
