@@ -26,14 +26,14 @@ void AdditionGame(string message)
     int firstNumber;
     int secondNumber;
 
-    for(int i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++)
     {
         firstNumber = random.Next(1, 9);
         secondNumber = random.Next(1, 9);
         Console.WriteLine($"{firstNumber} + {secondNumber}");
         var result = Console.ReadLine();
 
-        if(int.Parse(result) == firstNumber + secondNumber)
+        if (int.Parse(result) == firstNumber + secondNumber)
         {
             Console.WriteLine("Your answer was correct! Type any key for the next question");
             score++;
@@ -45,7 +45,11 @@ void AdditionGame(string message)
             Console.ReadLine();
         }
 
-        if (i == 4) Console.WriteLine($"Game over. Your final score is {score}.");
+        if (i == 4)
+        {
+            Console.WriteLine($"Game over. Your final score is {score}. Press any key to go back to the main menu");
+            Console.ReadLine();
+        }
     }
 
 
@@ -151,39 +155,47 @@ void Menu(string name)
 {
     Console.WriteLine("---------------------");
     Console.WriteLine($"Hello {name.ToUpper()}. It's {date.DayOfWeek}. This is your math game\n");
-    Console.WriteLine($@"What game would yo like to play today? Choose from the options below:
-A - Addition
-S - Subtraction
-M - Multiplication
-D - Division
-Q - Quit the program");
-    Console.WriteLine("---------------------");
 
-    var gameSelected = Console.ReadLine();
+    var isGameOn = true;
 
-    switch (gameSelected.Trim().ToLower())
+    do
     {
-        case "a":
-            AdditionGame("Addition game");
-            break;
-        case "s":
-            SubtractionGame("Subtraction game");
-            break;
-        case "m":
-            MultiplicationGame("Multiplication game");
-            break;
-        case "d":
-            DivisionGame("Division game");
-            break;
-        case "q":
-            Console.WriteLine("Goodbye");
-            Environment.Exit(1);
-            break;
-        default:
-            Console.WriteLine("Invalid input");
-            Environment.Exit(1);
-            break;
-    }
+        Console.Clear();
+        Console.WriteLine($@"What game would yo like to play today? Choose from the options below:
+                            A - Addition
+                            S - Subtraction
+                            M - Multiplication
+                            D - Division
+                            Q - Quit the program");
+        Console.WriteLine("---------------------");
+
+        var gameSelected = Console.ReadLine();
+
+        switch (gameSelected.Trim().ToLower())
+        {
+            case "a":
+                AdditionGame("Addition game");
+                break;
+            case "s":
+                SubtractionGame("Subtraction game");
+                break;
+            case "m":
+                MultiplicationGame("Multiplication game");
+                break;
+            case "d":
+                DivisionGame("Division game");
+                break;
+            case "q":
+                Console.WriteLine("Goodbye");
+                isGameOn = false;
+                break;
+            default:
+                Console.WriteLine("Invalid input");
+                break;
+        }
+    } while (isGameOn);
+
+
 }
 
 int[] GetDivisionNumbers()
