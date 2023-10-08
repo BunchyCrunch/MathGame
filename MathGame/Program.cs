@@ -6,6 +6,8 @@ using System;
 
 var date = DateTime.UtcNow;
 
+var games = new List<string>();
+
 var name = GetName();
 
 Menu(name);
@@ -52,8 +54,16 @@ void AdditionGame(string message)
         }
     }
 
+    AddToHistory(score, "Addition");
+
 
 }
+
+void AddToHistory(int gameScore, string gameType)
+{
+    games.Add($"{DateTime.Now} - {gameType} :{gameScore} points");
+}
+
 void SubtractionGame(string message)
 {
     Console.WriteLine("Subtraction game selected");
@@ -82,8 +92,13 @@ void SubtractionGame(string message)
             Console.ReadLine();
         }
 
-        if (i == 4) Console.WriteLine($"Game over. Your final score is {score}.");
+        if (i == 4)
+        {
+            Console.WriteLine($"Game over. Your final score is {score}. Press any key to go back to the main menu");
+            Console.ReadLine();
+        }
     }
+    AddToHistory(score, "Subtraction");
 }
 void MultiplicationGame(string message)
 {
@@ -113,8 +128,13 @@ void MultiplicationGame(string message)
             Console.ReadLine();
         }
 
-        if (i == 4) Console.WriteLine($"Game over. Your final score is {score}.");
+        if (i == 4)
+        {
+            Console.WriteLine($"Game over. Your final score is {score}. Press any key to go back to the main menu");
+            Console.ReadLine();
+        }
     }
+    AddToHistory(score, "Multiplication");
 }
 void DivisionGame(string message)
 {
@@ -143,11 +163,15 @@ void DivisionGame(string message)
             Console.ReadLine();
         }
 
-        if (i == 4) Console.WriteLine($"Game over. Your final score is {score}.");
-  
+        if (i == 4)
+        {
+            Console.WriteLine($"Game over. Your final score is {score}. Press any key to go back to the main menu");
+            Console.ReadLine();
+        }
+
     }
 
-    
+    AddToHistory(score, "Division");
 
 }
 
@@ -162,17 +186,21 @@ void Menu(string name)
     {
         Console.Clear();
         Console.WriteLine($@"What game would yo like to play today? Choose from the options below:
-                            A - Addition
-                            S - Subtraction
-                            M - Multiplication
-                            D - Division
-                            Q - Quit the program");
+        V - View Previous Games
+        A - Addition
+        S - Subtraction
+        M - Multiplication
+        D - Division
+        Q - Quit the program");
         Console.WriteLine("---------------------");
 
         var gameSelected = Console.ReadLine();
 
         switch (gameSelected.Trim().ToLower())
         {
+            case "v":
+                GetGames();
+                break;
             case "a":
                 AdditionGame("Addition game");
                 break;
@@ -196,6 +224,21 @@ void Menu(string name)
     } while (isGameOn);
 
 
+}
+
+void GetGames()
+{
+    Console.Clear();
+    Console.WriteLine("Games History");
+    Console.WriteLine("----------------------");
+
+    foreach(var game in games)
+    {
+        Console.WriteLine(game);
+    }
+    Console.WriteLine("----------------------\n");
+    Console.WriteLine("Press any key to return to the Main menu");
+    Console.ReadLine();
 }
 
 int[] GetDivisionNumbers()
